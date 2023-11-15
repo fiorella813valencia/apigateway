@@ -1,0 +1,34 @@
+import java.net.URL;
+import java.util.Scanner;
+import org.json.*;
+
+public class Apigw {
+
+	public static void main(String[] args) {
+		try {
+			apigw ("http://127.0.0.1/api/v1/aliados/","AL016"); //trae un aliado
+			apigw ("http://127.0.0.1:81/api/v1/productos/","PRD08"); //trae un producto
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public static void apigw(String addr, String codigo) throws Exception
+	{
+	    // construye URL
+	    String s =addr+codigo;
+	    URL url = new URL(s);
+	    // lee url
+	    Scanner scan = new Scanner(url.openStream());
+	    String str = new String();
+	    while (scan.hasNext())
+	        str += scan.nextLine();
+	    scan.close();
+	    System.out.println("Texto:"+ str);
+	    JSONArray obj2 = new JSONArray(str);
+	    String res = obj2.toString();
+	    System.out.println("Objeto:"+res);
+	}
+}
